@@ -41,26 +41,26 @@ class Deque:
     return self
 
 
-
-
-
-
-  def getHead(self): #for lols.   ... #dr.majchrzak if you actually read these i am sorry. i do believe this function will actually be useful as well though.
-    head = self.theArray[self.left + 1] 
-    return head
+  #def getHead(self): #for lols.   ... #dr.majchrzak if you actually read these i am sorry. i do believe this function will actually be useful as well though.
+  # # head = self.theArray[self.le
+   # return head
   
 #saves the value at the head of the queue, updates it to remove access to
 #that value, and returns the saved value, wrapping if necessary. 
 # If the queue is empty throws an exception. (For C++ and C#, use the message: Array is empty in removeHead
 
   def removeHead(self):
-    head = self.getHead() #needs to be BEFORE left incriment ...(i do not know how to spell that.)
+    #head = self.getHead() #needs to be BEFORE left incriment ...(i do not know how to spell that.)
+    
+    
     if self.count <= 0:
       raise IndexError('Array is empty in removeHead')
     elif self.size <= self.left + 1:
-      self.left = -1
+      self.left = 0
+      head = self.theArray[self.left] 
     else:
       self.left += 1
+      head = self.theArray[self.left] 
     self.count -= 1
     self.listArray = self.theArray
     return head #old head, its gone now.
@@ -102,8 +102,10 @@ class Deque:
         
       #while tailI > 0:
       for i in range (tailI):
+        
         newArray[newtail] = self.theArray[i]
-        newtail += 1 #
+        newtail += 1
+         #
         #tailI -= 1
 
       #while ??? < tailI:  #self.left + 1 is actual head idx not the iterative headI
@@ -119,9 +121,11 @@ class Deque:
 
     self.right = self.count #also since count is number of used idexes not index numbers,  
     #count is one more than the index of the last number so the +1 was +2-ing. kira's fault >:(   /joking
-    self.left = 0
+  
     self.theArray = newArray 
     self.size =  newSize  
+
+    self.left = self.size - 1
     return self
 
 
@@ -181,15 +185,28 @@ class Deque:
   def addHead(self, value):
 
     #modded from addtail
-    e = 'breakpoint'
     if self.left >= self.size:
       self.theArray[0] = value #test doesnt check if this works so idk yet
       self.left = 1 
 
+    elif self.left < 0:
+      #wrap
+      self.left = self.size - 1
+      self.theArray[self.left] = value
+      self.left -= 1
+
+
     elif self.size == self.count: 
       self.resize(newSize = self.size * 2)#test doesnt check if this works so idk yet
+      #if self.left == -1:
+        #self.left = self.size - 1
+        #self.theArray[self.left] = value
+    #  else:
+        #self.left -= 1
       self.theArray[self.left] = value  
       self.left -= 1
+      #self.theArray[self.left] = value  
+      
 
     else:
       self.theArray[self.left] = value     
@@ -206,14 +223,19 @@ class Deque:
 #is empty, throws an exception. (For C++ and C#, use the message: Array is empty in
 #removeTail) 
   def removeTail(self):
-    tail = self.theArray[self.right - 1]  
+      
     if self.count <= 0:
       raise IndexError('Array is empty in removeTail')
     elif self.size == self.right:
       self.right = 0 #this is probly wrong
+      self.right -= 1
     else:
       self.right -= 1
+      if self.right < 0:
+       self.right = self.size - 1
 
+      
+    tail = self.theArray[self.right]
     self.count -= 1
     self.listArray = self.theArray
     return tail
@@ -222,7 +244,6 @@ class Deque:
     '''
     How could you implement a stack using your double ended queue?
     Use this concept to list a provided set of numbers in reverse order. 
-
     More specifically, add a method to your Deque class called thinkSolve which takes two arguments,
     an array of integers and the number of elements in the list. 
     It instantiates a new deque, adds the integers to the new deque in their original order, then
@@ -232,4 +253,7 @@ class Deque:
 
   
   def thinkSolve(self, count):
-    return self
+    return self    the list. It instantiates a new deque, adds the integers to the new deque in their original order, then
+    removes the integers from the new deque in reverse order and adds them to the original deque
+    upon which thinkSolve was called.
+    '''
