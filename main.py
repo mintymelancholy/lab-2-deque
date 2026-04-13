@@ -11,12 +11,12 @@ from Deque import Deque
 def main():
   # uncomment functions to run tests
 
-  queueTest()
+  #queueTest()
   #resizeTest()
   #listTest()
   #addHeadTest()
   #removeTailTest()
-  #revQueueTest()
+  revQueueTest()
   #mixTest()
   #thinkTest()
 
