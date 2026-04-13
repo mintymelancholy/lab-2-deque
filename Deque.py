@@ -253,7 +253,16 @@ class Deque:
 
 
 
-  def thinkSolve(self, value, count):
+  def solveThink(self, nums, count):
+    newDeque = Deque()
+
+    for i in range(count):
+      newDeque.addTail(nums[i])
+
+    for i in range(count):
+      val = newDeque.removeTail()
+      self.addTail(val)
+
     return self
   
 
@@ -261,9 +270,13 @@ class Deque:
 
     '''
     How could you implement a stack using your double ended queue? Use this concept to list a
-    provided set of numbers in reverse order. More specifically, add a method to your Deque class
-    called thinkSolve which takes two arguments, an array of integers and the number of elements in
-    the list. It instantiates a new deque, adds the integers to the new deque in their original order, then
+    provided set of numbers in reverse order. More specifically, 
+    add a method to your Deque class
+    called thinkSolve
+            #wrong^ main.py wants solveThink not thinkSolve
+       which takes two arguments, an array of integers and the number of elements in
+    the list. 
+    It instantiates a new deque, adds the integers to the new deque in their original order, then
     removes the integers from the new deque in reverse order and adds them to the original deque
     upon which thinkSolve was called.
     '''
